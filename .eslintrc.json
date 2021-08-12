@@ -12,6 +12,7 @@
     },
     "rules": {
         "no-underscore-dangle": "off",
-        "noUselessIndex": 0 
+        "noUselessIndex": 0,
+        "no-console": "off"
     }
 }
