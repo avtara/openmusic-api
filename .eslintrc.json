@@ -12,6 +12,6 @@
     },
     "rules": {
         "no-underscore-dangle": "off",
-        "noUselessIndex": "false"
+        "noUselessIndex": 0 
     }
 }
