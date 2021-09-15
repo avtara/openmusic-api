@@ -26,17 +26,19 @@ const PlaylistsService = require('./services/postgres/PlaylistService');
 const PlaylistsValidator = require('./validator/playlists');
 const playlists = require('./api/playlists');
 
-// Exports
 const _exports = require('./api/exports');
 const ProducerService = require('./services/rabbitmq/ProducerService');
 const ExportsValidator = require('./validator/exports');
 
+const CacheService = require('./services/redis/CacheService');
+
 const init = async () => {
-  const songService = new SongService();
+  const cacheService = new CacheService();
+  const songService = new SongService(cacheService);
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
-  const collaborationsService = new CollaborationsService();
-  const playlistsService = new PlaylistsService(collaborationsService);
+  const collaborationsService = new CollaborationsService(cacheService);
+  const playlistsService = new PlaylistsService(collaborationsService, cacheService);
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
